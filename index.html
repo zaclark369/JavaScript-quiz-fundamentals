@@ -1,23 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./assets/css/style.css" />
     <title>JS Fundamentals Quiz</title>
-</head>
-<body>
-    <h1 id="title">
-        Welcome to JS Fundamentals.
-        This quiz can be completed by answering questions correctly.
-        When you submit your question, you will see your result in the next question.
-    </h1>
-    <h2>Prepare</h2>
-    <button>Start</button>
-    <div>
-        <ol id="questions"></ol>
+  </head>
+  <body>
+    <div id="startSection">
+      <h1 id="title">
+        Welcome to JS Fundamentals. This quiz can be completed by answering
+        questions correctly. When you submit your question, you will see your
+        result in the next question.
+      </h1>
+      <h2>Prepare</h2>
+      <button id="start-btn">Start</button>
+    </div>
+    <div id="announcement"></div>
+    <div id="countdown"></div>
+    <div id="questionSection" class="hide">
+      <div id="questionTitle">Question title</div>
+      <div id="question"></div>
+    <div id="color-text"></div>
+    <div id ="announcement"></div>
+    </div>
+    <div id="highScores" class="hide">
     </div>
     <script type="text/javascript" src="./assets/js/quiz.js"></script>
-</body>
+  </body>
 </html>
