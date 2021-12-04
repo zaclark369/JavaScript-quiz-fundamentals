@@ -118,7 +118,7 @@ function beginStartButton() {
       textColorEl.style.color = "green";
       announceEl.textcontent = "Next Question:";
     } else {
-      timeLeft -= 5;
+      timeRemaining -= 5;
       textColorEl.textcontent = "Wrong Answer! ";
       textColorEl.style.color = "red";
       announceEl.textcontent = "-5 seconds, please repeat the question: ";
@@ -126,47 +126,128 @@ function beginStartButton() {
     startQuestions();
   }
 }
-  console.log("endgame");
-  //   function endGame(timeRemaining) {
-  //       console.log("we made it to the endGame");
-  //     let score = timeLeft * 1000;
-  //     if (score < 0) {
-  //       score = 0;
-  //     }
+//   console.log("endgame");
+    function endGame(timeRemaining) {
+        console.log("we made it to the endGame");
+      let score = timeLeft * 1000;
+      if (score < 0) {
+        score = 0;
+      }
 
-  //     countdownEl.remove();
-  //     textColorEl.textcontent = "Congrats, you've completed the Quiz";
-  //     textColorEl.style.color = "Yellow";
-  //     announceEL.textcontent = "Your score is: " + score;
+      countdownEl.remove();
+      textColorEl.textcontent = "Congrats, you've completed the Quiz";
+      textColorEl.style.color = "Yellow";
+      announceEL.textcontent = "Your score is: " + score;
 
-  //     questionEl.remove();
+      questionEl.remove();
 
-  //     scoreForm();
+      scoreForm();
+    }
+      function scoreForm() {
+        const inputEl = document.createElement("input");
+        inputEl.placeholder = "Please enter the name you would like saved";
+        inputEl.name = "name";
+        inputEl.id = "initials-input";
 
-  //     function scoreForm() {
-  //       const inputEl = document.createElement("input");
-  //       inputEl.placeholder = "Please enter the name you would like saved";
-  //       inputEl.name = "name";
-  //       inputEl.id = "initials-input";
+        const saveEl = document.createElement("save");
+        saveEl.id = "submission";
+        saveEl.classList.add("btn-primary");
+        saveEl.textContent = "SAVE";
+        // insert into list form
+        containerEl.appendChild(inputEl);
+        containerEl.appendChild(saveEl);
 
-  //       const saveEl = document.createElement("save");
-  //       saveEl.id = "submission";
-  //       saveEl.classList.add("btn-primary");
-  //       saveEl.textContent = "SAVE";
-  //       // insert into list form
-  //       containerEl.appendChild(inputEl);
-  //       containerEl.appendChild(saveEl);
+        saveEl.addEventListener("save", handleScore);
+      }
 
-  //       saveEl.addEventListener("save", handleScore);
-  //     }
+      function handleScore(event) {
+        event.preventDefault();
+        const playerName = inputEl.value;
+        const scoresList = document.createElement('ol');
+        score = score.toString();
 
-  //     function handleScore() {}
+        if (!localStorage.getItem('high-scores')) {
+          localStorage.setItem('high-scores', score);
+          localStorage.setItem('name', playerName);
+        }
 
-  //     function handleHighScorePlacement() {}
+        let highScores = localStorage.getItem('high-scores');
+        highScores = highScores.split(',');
+        let names = localStorage.getItem('name');
+        names = names.split(',');
+        containerEl.append(scoresList);
+        scoresList.textContent = 'Top Scores: ';
+        scoresList.style.fontSize = '35px';
 
-  //     function createEndGameBtn() {}
-  //   }
+        handleHighScorePlacement();
+      }
 
+      function handleHighScorePlacement() {
+        const scoresCount = highScores.length;
+        let placeholder = 0;
+        for (i = 0; i < scoresCount; i++) {
+          if (
+            parseInt(score) > parseInt(highScores[i]) &&
+            highScores[i] !== placeholder
+          ) {
+            placeholder = highScores[i];
+            console.log(placeholder);
+            highScores.splice(i, 0, score);
+            names.splice(i, 0, playerName);
+          }
+          if (highScores.length < 3 && score !== highScores[i]) {
+            highScores.push(score);
+            names.push(playerName);
+          }
+        }
+
+        while (highScores.length > 3) {
+          highScores.pop();
+          names.pop();
+        }
+
+        for (let i = 0; i < highScores.length; i++) {
+          const listEl = document.createElement('li');
+          listEl.textContent = `${names[i]}      ......................      Score: ${highScores[i]}`;
+          listEl.classList.add('score-li');
+          scoresList.appendChild(listEl);
+        }
+
+        highScores = highScores.toString();
+        names = names.toString();
+        localStorage.setItem('high-scores', highScores);
+        localStorage.setItem('name', names);
+        document.querySelector('#initials-input').remove();
+        event.target.remove();
+    
+
+      makeEndgameButtons();
+    }
+
+      function createEndGameBtn() {       const clearStorageBtn = document.createElement('btn');
+      clearStorageBtn.id = 'clear-storage';
+      clearStorageBtn.classList.add('danger-btn');
+      clearStorageBtn.textContent = 'Clear Scores';
+      clearStorageBtn.addEventListener('click', handleClearStorage);
+
+      const retryBtn = document.createElement('btn');
+      retryBtn.id = 'retry';
+      retryBtn.classList.add('danger-btn');
+      retryBtn.textContent = 'Retry';
+      retryBtn.addEventListener('click', handleRetry);
+
+      document.body.appendChild(retryBtn);
+      document.body.appendChild(clearStorageBtn);
+
+      function handleClearStorage(event) {
+        localStorage.clear();
+        scoresList.remove();
+      }
+
+      function handleRetry(event) {
+        location.reload();}
+    
+      }
   
 
 startBtnEl.onclick = beginStartButton;
