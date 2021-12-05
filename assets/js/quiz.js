@@ -215,7 +215,7 @@ function endGame(timeRemaining) {
 
         for (let i = 0; i < highScores.length; i++) {
           const listEl = document.createElement("li");
-          listEl.textContent = `${names[i]}      ......................      Score: ${highScores[i]}`;
+          listEl.textContent = `${names[i]}      ......      Score: ${highScores[i]}`;
           listEl.classList.add("score-li");
           scoresList.appendChild(listEl);
         }
