@@ -124,9 +124,7 @@ input {
 
 }
 
-
-
-.danger-btn {
+.clear-btn {
     box-shadow: 0px 0px 0px 2px #9eb8ff;
     background: linear-gradient(to bottom, #ff453f 5%, #a71f1f 100%);
     background-color: #f1403a;
@@ -144,12 +142,12 @@ input {
     margin-top: 30px;
   }
   
-  .danger-btn:hover {
+  .clear-btn:hover {
     background: linear-gradient(to bottom, #a71f1f 5%, #ff453f 100%);
     background-color: #be4141;
   }
   
-  .danger-btn:active {
+  .clear-btn:active {
     position: relative;
     top: 1px;
   }
@@ -171,7 +169,7 @@ input {
     margin-top: 30px;
     text-align: justify;
   }
-  
+
 @media screen and (max-width: 768px) {
     h1 {
       font-size: 40px;
